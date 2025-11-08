@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Error:', error);
-            showMessage('Sorry, there was an error sending your message. Please email me directly at hello@maya-jade.dev', 'error');
+            showMessage('Sorry, there was an error sending your message. Please email me directly at notary@mayajadenotary.com', 'error');
         })
         .finally(() => {
             submitButton.textContent = originalButtonText;
