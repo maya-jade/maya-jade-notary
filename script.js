@@ -82,29 +82,38 @@ document.addEventListener('DOMContentLoaded', function() {
         submitButton.textContent = 'Sending...';
         submitButton.disabled = true;
         
-        // Simulate API call delay
-        setTimeout(() => {
-            // Log form data to console (for demonstration)
-            console.log('Form submitted:', data);
-            
-            // Create mailto link as fallback
-            const mailtoLink = `mailto:hello@maya-jade.dev?subject=Contact Form Submission&body=Name: ${data.firstName} ${data.lastName}%0D%0AEmail: ${data.email}%0D%0APhone: ${data.phone}%0D%0A%0D%0AMessage:%0D%0A${data.message}`;
-            
-            // Show success message
-            showMessage('Thank you for your message! I\'ll respond within one business hour. Opening your email client...', 'success');
-            
-            // Open mailto link
-            setTimeout(() => {
-                window.location.href = mailtoLink;
-            }, 1500);
-            
-            // Reset form
-            contactForm.reset();
-            
-            // Reset button
+        // Submit to Formspree
+        fetch('https://formspree.io/f/mblqrlzw', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                firstName: data.firstName,
+                lastName: data.lastName,
+                email: data.email,
+                phone: data.phone,
+                message: data.message,
+                _replyto: data.email,
+                _subject: 'New Contact Form Submission - Maya Jade Notary'
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                showMessage('Thank you for your message! I\'ll respond within one business hour.', 'success');
+                contactForm.reset();
+            } else {
+                throw new Error('Form submission failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showMessage('Sorry, there was an error sending your message. Please email me directly at hello@maya-jade.dev', 'error');
+        })
+        .finally(() => {
             submitButton.textContent = originalButtonText;
             submitButton.disabled = false;
-        }, 1000);
+        });
     }
 });
 
