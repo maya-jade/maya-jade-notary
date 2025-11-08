@@ -164,3 +164,32 @@ document.addEventListener('DOMContentLoaded', function() {
         lastScroll = currentScroll;
     });
 });
+
+// Service card clicks redirect to contact form
+document.addEventListener('DOMContentLoaded', function() {
+    const serviceCards = document.querySelectorAll('.service-card');
+    
+    serviceCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+                const headerOffset = 80;
+                const elementPosition = contactSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Focus on the first name input after scrolling
+                setTimeout(() => {
+                    const firstNameInput = document.getElementById('firstName');
+                    if (firstNameInput) {
+                        firstNameInput.focus();
+                    }
+                }, 800);
+            }
+        });
+    });
+});
