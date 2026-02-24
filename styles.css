@@ -163,7 +163,7 @@ h1, h2, h3, h4 {
     position: relative;
     height: 600px;
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    background-image: url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070');
+    background-image: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=2070');
     background-size: cover;
     background-position: center;
     display: flex;
